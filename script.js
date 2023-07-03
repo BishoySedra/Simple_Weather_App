@@ -2,7 +2,8 @@ const city = document.getElementById('city');
 const button = document.querySelector('button');
 const container = document.getElementById('container');
 
-function getData() {
+// using ajax and json manually
+function getDataAjax() {
 
   const data = new XMLHttpRequest();
 
@@ -17,13 +18,13 @@ function getData() {
       let name = city.value;
 
       container.innerHTML = `
-      <h1>${name[0].toUpperCase()}${name.slice(1)}</h2>
-      <div style="display:flex; justify-content:space-between;">
-        <h3>${objectData['current']['temp_c']} <sup>°</sup>C</h3>
-        <img src="${objectData['current']['condition']['icon']}" alt="weather icon">
-      </div>
-      <h3>${objectData['current']['condition']['text']}</h3>
-    `;
+  <h1>${name[0].toUpperCase()}${name.slice(1)}</h2>
+  <div style="display:flex; justify-content:space-between;">
+    <h3>${objectData['current']['temp_c']} <sup>°</sup>C</h3>
+    <img src="${objectData['current']['condition']['icon']}" alt="weather icon">
+  </div>
+  <h3>${objectData['current']['condition']['text']}</h3>
+`;
 
       // console.log(objectData);
       // console.log(objectData['current']);
@@ -38,4 +39,25 @@ function getData() {
 
 }
 
-button.addEventListener('click', getData);
+// using fetch
+function fetchData() {
+  fetch(`http://api.weatherapi.com/v1/current.json?key=e346fcf427b149d0a2090941232706&q=${city.value}&aqi=no`)
+    .then(res => res.json())
+    .then(objectData => {
+      // console.table(objectData);
+      let name = city.value;
+      container.innerHTML = `
+      <h1>${name[0].toUpperCase()}${name.slice(1)}</h2>
+      <div style="display:flex; justify-content:space-between;">
+        <h3>${objectData['current']['temp_c']} <sup>°</sup>C</h3>
+        <img src="${objectData['current']['condition']['icon']}" alt="weather icon">
+      </div>
+      <h3>${objectData['current']['condition']['text']}</h3>
+    `;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+button.addEventListener('click', fetchData);
