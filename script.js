@@ -49,7 +49,7 @@ function fetchData() {
     .then(objectData => {
       // console.table(objectData);
       let name = city.value;
-      [temp, icon, condition] = [objectData['current']['temp_c'], objectData['current']['condition']['icon'], objectData['current']['condition']['text']];
+      let [temp, icon, condition] = [objectData['current']['temp_c'], objectData['current']['condition']['icon'], objectData['current']['condition']['text']];
 
       container.innerHTML = `
       <h1>${name[0].toUpperCase()}${name.slice(1)}</h2>
