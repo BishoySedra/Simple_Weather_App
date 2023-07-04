@@ -42,7 +42,7 @@ function getDataAjax() {
 // using fetch
 function fetchData() {
 
-  fetch(`http://api.weatherapi.com/v1/current.json?key=e346fcf427b149d0a2090941232706&q=${city.value}&aqi=no`)
+  fetch(`https://api.weatherapi.com/v1/current.json?key=e346fcf427b149d0a2090941232706&q=$%7B${city.value}%7D&aqi=no`)
 
     .then(res => res.json())
 
